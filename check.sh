@@ -57,6 +57,14 @@ check004() {
 
 }
 
+check005() {
+    if [ ! -d 005/a/b/c/d/e ]; then
+        echo "ディレクトリa/b/c/d/eがありません"
+        return 1
+    fi
+    return 0
+}
+
 R=NG
 check001 && R=OK
 echo "問題1 ${R}"
@@ -72,3 +80,7 @@ echo "問題3 ${R}"
 R=NG
 check004 && R=OK
 echo "問題4 ${R}"
+
+R=NG
+check005 && R=OK
+echo "問題5 ${R}"
