@@ -45,6 +45,18 @@ check003() {
     return 0
 }
 
+check004() {
+    local R1 R2
+    R1=$(cd 004/dest; find . -name "[a-z]*" -type f | sort | xargs -n1 cat)
+    R2=$(find 004 -maxdepth 1 -name "[a-z]*" -type f | sort | xargs -n1 cat)
+    if [ ! "${R1}" = "${R2}" ]; then
+        echo "ディレクトリ内のファイルが元と一致していません"
+        return 1
+    fi
+    return 0
+
+}
+
 R=NG
 check001 && R=OK
 echo "問題1 ${R}"
@@ -56,3 +68,7 @@ echo "問題2 ${R}"
 R=NG
 check003 && R=OK
 echo "問題3 ${R}"
+
+R=NG
+check004 && R=OK
+echo "問題4 ${R}"
