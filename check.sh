@@ -65,6 +65,19 @@ check005() {
     return 0
 }
 
+check006() {
+    find 006 -type f -name "BUG" | tee /tmp/r.$$
+    rmr() {
+        rm -f /tmp/r.$$
+    }
+    trap rmr 0
+    if [ $(wc -l < /tmp/r.$$) -gt 0 ]; then
+        echo "BUGはまだ残っています!"
+        return 1
+    fi
+    return 0
+}
+
 R=NG
 check001 && R=OK
 echo "問題1 ${R}"
@@ -84,3 +97,7 @@ echo "問題4 ${R}"
 R=NG
 check005 && R=OK
 echo "問題5 ${R}"
+
+R=NG
+check006  && R=OK
+echo "問題6 ${R}"
