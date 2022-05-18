@@ -153,6 +153,11 @@ check009 && R=OK
 echo "問題9 ${R}"
 
 check010() {
+    if [ ! -d 010/results ]; then
+        echo "resultsディレクトリがありません"
+        return 1
+    fi
+    cd 010/results
     local R item
     R=0
     for item in /etc/hosts /initrd.img /bin/cp; do
@@ -167,7 +172,12 @@ check010() {
             if [ ! "${r1}" = "${r2}" ]; then
                 echo "ファイル $b が 元ファイル $item と一致していません"
                 R=1
+            fi
         fi
     done
     return $R
 }
+
+R=NG
+check010 && R=OK
+echo "問題10 ${R}"
