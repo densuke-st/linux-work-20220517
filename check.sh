@@ -152,3 +152,22 @@ R=NG
 check009 && R=OK
 echo "問題9 ${R}"
 
+check010() {
+    local R item
+    R=0
+    for item in /etc/hosts /initrd.img /bin/cp; do
+        b=$(basename $item)
+        if [ ! -L $b ]; then
+            echo "$b がありません、もしくはシンボリックリンクではありません"
+            R=1
+        else
+            local r1 r2
+            r1=$(basename $item | awk '{print $1}')
+            r2=$(basename $b | awk '{print $1}')
+            if [ ! "${r1}" = "${r2}" ]; then
+                echo "ファイル $b が 元ファイル $item と一致していません"
+                R=1
+        fi
+    done
+    return $R
+}
