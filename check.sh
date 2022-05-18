@@ -131,3 +131,24 @@ R=NG
 check008  && R=OK
 echo "問題8 ${R}"
 
+check009() {
+    local R
+    R=0
+    if [ $(find 009 -type d | wc -l) -gt 2 ]; then
+        echo "ディレクトリの整理がされていません(余計なディレクトリが残っています)"
+        return 1
+    fi
+    for i in 13499 16114 16145 17191 18883 20289 21258 21839 23278 2634 30897 31302 4076 9913; do
+        if [ ! -f 009/complicated/$i ]; then
+            R=1
+            echo "ファイル $i がありません"
+            break
+        fi
+    done
+    return $R
+}
+
+R=NG
+check009 && R=OK
+echo "問題9 ${R}"
+
