@@ -111,3 +111,23 @@ R=NG
 check007  && R=OK
 echo "問題7 ${R}"
 
+check008() {
+    if [ ! -f 008/yonde.txt ]; then
+        echo "問題8: ファイルyonde.txtがありません"
+        return 1
+    fi
+
+    IN1=$(ls -i 008/README.txt | awk '{print $1}')
+    IN2=$(ls -i 008/yonde.txt | awk '{print $1}')
+
+    if [ ${IN1} -eq ${IN2} ]; then
+        return 0
+    fi
+    echo "問題8: yonde.txtがハードリンクではありません"
+    return 1
+}
+
+R=NG
+check008  && R=OK
+echo "問題8 ${R}"
+
