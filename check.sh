@@ -101,3 +101,13 @@ echo "問題5 ${R}"
 R=NG
 check006  && R=OK
 echo "問題6 ${R}"
+
+check007() {
+    test -f 007/hoge.d/fuga
+    return $?
+}
+
+R=NG
+check007  && R=OK
+echo "問題7 ${R}"
+
